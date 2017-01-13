@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 rancher-compose_version" >&2
+    exit 1
+fi
+
+RANCHER_COMPOSE_VERSION=$1
+IMAGE=kenjin/rancher-compose:${RANCHER_COMPOSE_VERSION}
+docker build --tag $IMAGE --build-arg RANCHER_COMPOSE_VERSION=${RANCHER_COMPOSE_VERSION} . 
+docker push $IMAGE
+docker tag $IMAGE kenjin/rancher-compose:latest
+docker push kenjin/rancher-compose:latest
