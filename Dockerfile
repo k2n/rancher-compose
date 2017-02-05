@@ -6,7 +6,7 @@ MAINTAINER Kenji Nakamura <kenji@signifier.jp>
 ARG RANCHER_COMPOSE_VERSION=${RANCHER_COMPOSE_VERSION}
 
 # Install dependencies and rancher-compose
-RUN apk add --quiet --no-cache jq curl && \
+RUN apk add --quiet --no-cache jq curl git && \
 	apk add --quiet --no-cache --virtual=build-dependencies ca-certificates && \
         curl -sSL "https://github.com/rancher/rancher-compose/releases/download/v${RANCHER_COMPOSE_VERSION}/rancher-compose-linux-amd64-v${RANCHER_COMPOSE_VERSION}.tar.gz" | tar -xz -C /usr/local/bin/ --strip-components=2 && \
         apk del --no-cache build-dependencies && \
